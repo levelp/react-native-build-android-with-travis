@@ -1,0 +1,26 @@
+language: android
+before_install:
+- nvm install 6
+- node --version
+install:
+- npm install
+android:
+  components:
+  - build-tools-23.0.1
+  - android-23
+  - extra-android-m2repository
+  - extra-google-google_play_services
+  - extra-google-m2repository
+  - addon-google_apis-google-16
+script:
+- npm run ci
+- cd android && ./gradlew assembleRelease
+deploy:
+  provider: releases
+  skip_cleanup: true
+  api_key:
+    secure: kC1uNEFJy+yCQXKAlcYjwcLmIIPfTM8kRl+JI1/u1JaBubVqSfsnmkenllNKeBbD+v+bnh8ZmLPiUoxTbrS3OZ0JDyvu6ClRmiLyJdrPsU1EcVY/WCgx8riP/Ynbzc0FcHWOd0Joqh7OqqLDj6FjoUSTpZgBXDFe71254KCpSRYqw2s4J7MD9+VbOoxSHDIukEqAc6XeNpm0scbfoR1GZXgczitNoaPDOpfV2OXIrSmtkuEHw/ZcaqoN3UJEbcDn9jopnbJ0e+el5nY6MxJB8yt3TLaxshjrXdk4il3oOTc6cwQxjQUMpBakptp+bfgD4lbp/qm1L7PelO6BuVOBvsOKSB2rXKAhy05zktdJ8Q4tFr9oywmziAtbMn80BSUq+baXyq6ac+hKQVRiBbJqCytPLIUdbAAoLyl3agzjBLSL4ZrRWW2NSFhiSST3ZqHP5nnAXargxjMFh1Smzt7HH3Eeasn1AqcXk/cPV2kIKFXEierNX5DeNjqpMxkBw1qnK28d+7RdBKrDO++mTikBvs9qFSx5Zx7xoCJuErxQIBEnYnGf8J9e9XR3lPW8M0x0z8OgGd3K3jOz3bJHLxCcR1/AZD2b7cDk0PM2LXuDChkYEJmcGguZdfVnj1lPcKeDWCWE7Uz+Fvo0oGZ9gDvE7aRJUBNekCqJ3Fk63UxjsKI=
+  file: $TRAVIS_BUILD_DIR/android/app/build/outputs/apk/app-release-unsigned.apk
+  on:
+    repo: levelp/react-native-build-android-with-travis
+    tags: true
