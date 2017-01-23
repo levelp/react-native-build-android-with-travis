@@ -23,3 +23,4 @@ deploy:
   file: $TRAVIS_BUILD_DIR/android/app/build/outputs/apk/app-release-unsigned.apk
   on:
     repo: levelp/react-native-build-android-with-travis
+    tags: true
